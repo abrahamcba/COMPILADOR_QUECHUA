@@ -1,0 +1,82 @@
+#incluir    <iostream.h>
+main();
+{
+cadena r;
+entero s,d,f,t,t,t,t,t,t;
+i=3;
+ari(a=a)HINAQA{
+d=4+3;
+
+paq(a=3;sz<=3;s++){
+QILLQAY('');
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+
+}
+ari(a=a)HINAQA{
+d=4+3;
+QILLQAY('');
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+sino{
+QILLQAY(' 2estamos en el programa 23 de3');
+d=4+3;
+QILLQAY('');
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+ari(a=a)HINAQA{
+d=4+3;
+QILLQAY('');
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+kama(a<=a)hacer{
+d=4+3;
+QILLQAY('');
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+ari(a=a)HINAQA{
+d=4+3;
+QILLQAY('');
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+kama(a<=a)hacer{QILLQAY('');
+d=4+3;
+QILLQAY(' 2estamos en el programa 23 de3');
+s=3;
+d=a;
+}
+paq(a=3;sz<=3;s++){
+
+
+}
+
+
+ari(s=90)HINAQA{
+paq(a=3;sz<=3;s++){
+paq(a=3;sz<=3;s++){
+
+
+}
+
+
+}
+}
+
+ari(s=90)HINAQA{}
+sino{
+ari(s=90)HINAQA{}
+QILLQAY(' 2estamos en el programa 23 de3');
+}
+}

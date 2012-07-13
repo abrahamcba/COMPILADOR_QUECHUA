@@ -1,0 +1,208 @@
+package Compilador;
+import java.io.*;
+import java_cup.runtime.*; 
+
+parser code
+{:
+	public static void main(String args[]) throws Exception{
+		//new parser(new Yylex(new FileInputStream(args[0]))).parse();
+		new parser(new Yylex(System.in)).parse();
+	}
+	public void syntax_error(Symbol s){
+		report_error("Error de sintaxis. Linea: " + (s.right + 1) +
+		" Columna: " + s.left + ". Texto: \"" + s.value + "\"", null);
+	}
+:}
+
+terminal String ARI, HINAQA, IGUAL, PARENTI, PARENTD, H, PUNTO, PAQ;
+terminal String CAB, INCLUIR, IOSTREAM, STDIO, MAIN, VOID, QILLQAY, COMIS;
+terminal String MENOSNUM, MENOSUNO, MASNUM, MASUNO, COMA, PYCOMA; 
+terminal String DIFERENTE, MAYORIGUAL, MENORIGUAL, MAYOR, MENOR;
+terminal String KAMA, HACER, SINO, MAS ,MENOS, MULTI, ENTRE;
+terminal String ENTERO, CADENA, REAL;
+terminal String LLAVEI, LLAVED, LETRA;
+terminal integer NUMERO;
+non terminal Lista,Sentencia, Expresion, inter, inte, Incre;
+non terminal Regla, Cabecera, Expresion1, ExpresionP;
+non terminal Vin, Con, Vfi;
+non terminal Sin, Sinta, Signo, Ins, Instruccion, Var, A, B, Tvar, C, D, E, F, G, HH, I, J, K, L;
+
+Sin ::= Regla A LLAVEI Tvar Lista LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+    | Regla A LLAVEI Tvar Ins Lista LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+	| Regla A LLAVEI Tvar Ins  LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+    | Regla A LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+	| Regla A LLAVEI Tvar LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+	| error {: System.out.println("Error sintactico en la sentencia"); :}
+	;	  
+A ::= MAIN PARENTI PARENTD PYCOMA
+    | VOID PARENTI PARENTD PYCOMA 
+    ;	
+Tvar ::= Tvar C
+	  | C
+	  ;
+C ::=  CADENA LETRA PYCOMA  
+      | ENTERO LETRA PYCOMA 
+	  | REAL LETRA PYCOMA 
+      | CADENA LETRA D PYCOMA 	  
+	  | ENTERO LETRA D PYCOMA 	  
+	  | REAL LETRA D PYCOMA
+      ;
+D ::= D E
+	  | E
+	  ;
+E ::= COMA LETRA
+	  ;
+Regla ::= Regla Cabecera
+         |Cabecera
+		 ;
+Cabecera ::= CAB INCLUIR MENOR Expresion1 PUNTO H MAYOR {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| error {: System.out.println("Error sintactico en la sentencia"); :}
+			;
+Expresion1 ::= IOSTREAM
+        |	STDIO
+		;		 
+Lista ::= Lista Sentencia
+        |Sentencia
+		;
+Sentencia ::= ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+            | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J LLAVED{: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI J Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI J LLAVED SINO LLAVEI J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+		    | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI Ins J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI J Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI Ins J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER LLAVEI J Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER LLAVEI Ins J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER J LLAVEI J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER J LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| KAMA PARENTI Expresion PARENTD HACER LLAVEI J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}			
+			| PAQ PARENTI ExpresionP PARENTD LLAVEI Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| PAQ PARENTI ExpresionP PARENTD LLAVEI J Ins LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| PAQ PARENTI ExpresionP PARENTD LLAVEI Ins J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}			
+			| PAQ PARENTI ExpresionP PARENTD LLAVEI LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| PAQ PARENTI ExpresionP PARENTD LLAVEI J LLAVED {: System.out.println("Sentencia analizada correctamente. Sin errores."); :}
+			| error {: System.out.println("Error sintactico en la sentencia"); :}
+			;
+J ::= J K 
+	  | K 
+	  ;
+K ::= ARI PARENTI Expresion PARENTD HINAQA LLAVEI J LLAVED
+     | ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED 
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED 
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED 
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI J Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI Ins J LLAVED	 
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI J LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J LLAVED SINO LLAVEI Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins LLAVED SINO LLAVEI LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI J Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI Ins J LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI LLAVED SINO LLAVEI J LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J LLAVED SINO LLAVEI LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI J Ins LLAVED	
+     | ARI PARENTI Expresion PARENTD HINAQA LLAVEI J Ins LLAVED SINO LLAVEI Ins J LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI Ins LLAVED
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI J Ins LLAVED	
+     | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI Ins J LLAVED	 
+	 | ARI PARENTI Expresion PARENTD HINAQA LLAVEI Ins J LLAVED SINO LLAVEI J LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER LLAVEI Ins LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER LLAVEI J Ins LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER LLAVEI Ins J LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER LLAVEI LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER J LLAVEI J LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER J LLAVEI LLAVED
+	 | KAMA PARENTI Expresion PARENTD HACER LLAVEI J LLAVED		
+	 | PAQ PARENTI ExpresionP PARENTD LLAVEI Ins LLAVED
+	 | PAQ PARENTI ExpresionP PARENTD LLAVEI J Ins LLAVED
+	 | PAQ PARENTI ExpresionP PARENTD LLAVEI Ins J LLAVED		
+	 | PAQ PARENTI ExpresionP PARENTD LLAVEI LLAVED
+	 | PAQ PARENTI ExpresionP PARENTD LLAVEI J LLAVED 
+	  ;	
+
+Ins ::= Ins Instruccion 
+	 | Instruccion
+	 ;	
+Instruccion ::= QILLQAY PARENTI COMIS HH COMIS PARENTD PYCOMA
+             | QILLQAY PARENTI COMIS COMIS PARENTD PYCOMA
+			 | Var PYCOMA
+			 ;		
+HH ::= HH I
+	  | I
+	  ;
+I ::= LETRA
+      |NUMERO
+	  ;			 
+Var ::= LETRA IGUAL LETRA 
+	| LETRA IGUAL NUMERO 
+	| LETRA IGUAL NUMERO Signo NUMERO
+	| LETRA IGUAL NUMERO Signo LETRA
+	| LETRA IGUAL LETRA Signo NUMERO 
+	| LETRA IGUAL LETRA Signo LETRA 
+	| LETRA IGUAL NUMERO Signo NUMERO F
+    | LETRA IGUAL NUMERO Signo LETRA F
+	| LETRA IGUAL LETRA Signo NUMERO F
+	| LETRA IGUAL LETRA Signo LETRA  F
+	;
+F ::= F G
+	  | G
+	  ;
+G ::= Signo NUMERO
+     |Signo LETRA
+	  ;
+Expresion ::= LETRA inter NUMERO
+      |	NUMERO inter NUMERO
+	  | LETRA inter LETRA
+	  | NUMERO inter LETRA
+	  ;
+inter ::= DIFERENTE
+		| MAYORIGUAL
+		| MENORIGUAL
+		| MAYOR
+		| MENOR
+		| IGUAL
+		;
+inte ::= MAYORIGUAL
+		| MENORIGUAL
+		| MAYOR
+		| MENOR
+		;
+ExpresionP ::= Vin PYCOMA Con PYCOMA Vfi
+		  ;
+Vin ::= LETRA IGUAL NUMERO
+	;
+Con ::= LETRA inte NUMERO
+	;
+Vfi ::= LETRA Incre
+    | LETRA IGUAL LETRA MAS NUMERO
+	| LETRA IGUAL LETRA MENOS NUMERO
+	;
+Incre ::= MENOSNUM NUMERO
+		| MENOSUNO
+		| MASNUM NUMERO
+		| MASUNO
+		;
+Signo ::= MAS
+		|MENOS
+		|ENTRE
+		|MULTI
+		;
